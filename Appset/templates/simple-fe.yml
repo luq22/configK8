@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: simple-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io 
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: luqman
+  project: luqmantest
+  source:
+    path: app/simple-fe/
+    repoURL: https://github.com/luq22/configK8.git
+    targetRevision: HEAD
+
+
+
+

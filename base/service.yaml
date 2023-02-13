@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-svc
+  namespace: luqman
+spec:
+  ports:
+    #  - name: http
+    # port: 80
+    #  protocol: TCP
+  - name: https
+    protocol: TCP
+    port: 443
+  selector:
+    app: app

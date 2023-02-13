@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: base-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: base-app
+  template:
+    metadata:
+      labels:
+        app: base-app
+    spec:
+      # imagePullSecrets:
+      # - name: regcred
+      containers:
+      - name: base-app
+        image: change:me
+        resources:
+          limits:
+            cpu: 100m
+          requests:
+            cpu: 90m
+              # ports:
+              # - containerPort: 3000
