@@ -1,0 +1,61 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: luqman
+
+patches:
+- patch: |-
+    - op: replace
+      path: /metadata/name
+      value: simple-fe
+    - op: replace
+      path: /spec/selector/matchLabels/app
+      value: simple-fe
+    - op: replace
+      path: /spec/template/metadata/labels/app
+      value: simple-fe
+    - op: replace
+      path: /spec/template/spec/containers/0/name
+      value: simple-fe
+    - op: add
+      path: /spec/template/spec/containers/0/ports
+      value:
+        - containerPort: 7561
+    - op: replace
+      path: /spec/template/spec/containers/0/resources/limits/cpu
+      value: "0.5"
+    - op: replace
+      path: /spec/template/spec/containers/0/resources/limits/memory
+      value: "100Mi"
+    - op: replace
+      path: /spec/template/spec/containers/0/resources/requests/cpu
+      value: "0.2"
+    - op: replace
+      path: /spec/template/spec/containers/0/resources/requests/memory
+      value: "18Mi"
+  target:
+    group: apps
+    kind: Deployment
+    name: base-app
+    version: v1
+- patch: |-
+    - op: replace
+      path: /metadata/name
+      value: app-svc
+    - op: add
+      path: /spec/ports/0/targetPort
+      value: 7561
+    - op: replace
+      path: /spec/selector/app
+      value: simple-fe
+
+  target:
+    kind: Service
+    name: app-svc
+    version: v1
+images:
+- name: change
+  newName: luqman1513/fetest
+  newTag: latest
+resources:
+- ../../base
+
