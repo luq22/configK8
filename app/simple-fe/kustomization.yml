@@ -47,11 +47,33 @@ patches:
     - op: replace
       path: /spec/selector/app
       value: simple-fe
-
   target:
     kind: Service
     name: app-svc
     version: v1
+patchesJson6902:
+- patch: |-
+    - op: replace
+      path: /metadata/labels/app
+      value: app-ingress
+    - op: replace
+      path: /metadata/name
+      value: app-ingress
+    - op: replace
+      path: /spec/ingressClassName
+      value: luqman-ingress
+    - op: replace
+      path: /spec/rules/0/host
+      value: luqman.test.com
+    - op: replace
+      path: spec/rules/0/http/paths/backend/service/name
+      value: app-svc
+    - op: replace
+      path: spec/rules/0/http/paths/backend/service/port/number
+      value: 80
+  target:
+    kind: Ingress
+    name: base-ingress
 images:
 - name: change
   newName: luqman1513/fetest

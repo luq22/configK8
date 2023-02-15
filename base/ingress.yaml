@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    - app: project_name
+  name: base-ingress
+  namespace: luqman
+  annotations:
+spec:
+  ingressClassName: nginx-example
+  rules:
+  - host: test.domain.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: test
+            port:
+              number: 80
+
