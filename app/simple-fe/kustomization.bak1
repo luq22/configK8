@@ -1,0 +1,30 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: luqman
+patches:
+- patch: |-
+    - op: replace
+      path: /metadata/labels/app
+      value: app-ingress
+    - op: replace
+      path: /metadata/name
+      value: app-ingress
+    - op: replace
+      path: /spec/ingressClassName
+      value: luqman-ingress
+    - op: replace
+      path: /spec/rules/0/host
+      value: luqman.test.com
+    - op: replace
+      path: /spec/rules/0/http/paths/backend/service/name
+      value: app-svc
+    - op: replace
+      path: /spec/rules/0/http/paths/backend/service/port/number
+      value: 80
+  target:
+    kind: Ingress
+    name: base-ingress
+    version: v1
+resources:
+- ../../base
+
