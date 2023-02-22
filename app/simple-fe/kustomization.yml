@@ -72,6 +72,7 @@ patchesJson6902:
   target:
     kind: Ingress
     name: app-ingress
+    version: v1
 images:
 - name: change
   newName: luqman1513/fetest
