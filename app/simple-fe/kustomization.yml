@@ -59,7 +59,7 @@ patchesJson6902:
       value: simple-fe
     - op: replace
       path: /metadata/name
-      value: simple-fe
+      value: simple-fe-svc
     #- op: replace
     # path: /spec/ingressClassName
     # value: luqman-ingress
@@ -76,6 +76,26 @@ patchesJson6902:
     kind: Ingress
     name: base-ingress
     version: v1
+patchesJson6902:
+- patch: |-
+    - op: replace
+      path: /metadata/labels/app
+      value: simple-fe
+    - op: replace
+      path: /metadata/name
+      value: simpe-fe-ingress
+    - op: replace
+      path: /spec/rules/0/http/paths/0/backend/service/name
+      value: simple-fe-svc
+    - op: replace
+      path: /spec/rules/0/http/paths/0/backend/service/port/number
+      value: 80
+    - op: replace
+      path: /spec/rules/0/host
+      value: luqman.test.com
+  target:
+    kind: Ingress
+    name: app-ingress
 images:
 - name: change
   newName: luqman1513/fetest
