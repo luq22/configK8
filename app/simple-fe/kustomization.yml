@@ -52,7 +52,7 @@ patches:
     kind: Service
     name: app-svc
     version: v1
-patchesJson6902:
+
 - patch: |-
     - op: replace
       path: /metadata/labels/app
